@@ -1,5 +1,21 @@
-version: '3'
+version: '3.4'
 services:
+  pokedex:
+    depends_on:
+      - db
+    container_name: Pokemon-Pokedex
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nest-pokemon
+    environment:
+      - MONGODB=${MONGODB}
+      - PORT=${PORT}
+      - DEFAULT_LIMIT=${DEFAULT_LIMIT}
+    links:
+      - db
+    ports:
+      - ${PORT}:${PORT}
   db:
     container_name: Pokemon-Database
     image: mongo:5.0.0
